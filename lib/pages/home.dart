@@ -1,34 +1,43 @@
 import 'package:flutter/material.dart';
 import '../tools/account.dart';
 
-class User {
-  final String userName;
-  final String email;
+class HomePage extends StatefulWidget {
+  final Map arguments;
+  HomePage({super.key, required this.arguments});
 
-  User(this.userName, this.email);
+  @override
+  State<HomePage> createState() => _HomePageState();
 }
 
-class HomePage extends StatelessWidget {
-  User user = User('John Doe', 'john@example.com');
+class _HomePageState extends State<HomePage> {
+  late User user;
 
-void _getUserByEmail(String email) {
-  // print('${username} ${password}');
-  // print(userList);
-  for (int i = 0; i < userList.length; i++) {
-    //print('${i} ${userList[i].userName == username } ${userList[i].userName} ${userList[i].password}');
-    if (userList[i].email == email) {
-      //user = userList[i];
-      break;
-    }
+  // User? _getUserByEmail(String email) {
+  //   // print('${username} ${password}');
+  //   // print(userList);
+  //   for (int i = 0; i < userList.length; i++) {
+  //     //print('${i} ${userList[i].userName == username } ${userList[i].userName} ${userList[i].password}');
+  //     if (userList[i].email == email) {
+  //       //user = userList[i];
+  //       return userList[i];
+  //     }
+  //   }
+  //   return null;
+  // }
+
+  @override
+  void initState() {
+    user = widget.arguments['user'];
   }
-}
+
   @override
   Widget build(BuildContext context) {
+    bool _selected = false;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
         centerTitle: true,
-        title: Text('Home Page'),
+        title: Text('Home'),
       ),
       backgroundColor: Color.fromRGBO(211, 211, 211, 1),
       body: Column(
@@ -106,6 +115,8 @@ void _getUserByEmail(String email) {
                     width: double.infinity,
                     padding: EdgeInsets.all(10),
                     child: ListTile(
+                      selected: _selected,
+                      selectedColor: Color.fromRGBO(173, 216, 230, 1),
                       leading: Icon(
                         Icons.person_2,
                         size: 40,
@@ -114,7 +125,10 @@ void _getUserByEmail(String email) {
                       subtitle: Text(user.email),
                       //trailing: Icon(Icons.arrow_forward_ios),
                       onTap: () {
-                        print('friend details');
+                        _selected = !_selected;
+                        print('home page jump to user page');
+                        Navigator.pushNamed(context, '/user',
+                            arguments: {'user': user});
                       },
                     ),
                   );
@@ -127,5 +141,3 @@ void _getUserByEmail(String email) {
     );
   }
 }
-
-

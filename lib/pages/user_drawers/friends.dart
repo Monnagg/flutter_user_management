@@ -15,17 +15,13 @@ class _FriendsPageState extends State<FriendsPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    int id = widget.arguments['id'];
-    for (var i = 0; i < userList.length; i++) {
-      if (userList[i].id == id) {
-        user = userList[i];
-      }
-    }
+    user = widget.arguments['user'];
   }
 
   @override
   Widget build(BuildContext context) {
     user.friends?.sort((a, b) => a.name.compareTo(b.name));
+    int? count = user.friends?.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -33,7 +29,7 @@ class _FriendsPageState extends State<FriendsPage> {
         title: Text("My Friends"),
       ),
       body: ListView.builder(
-        itemCount: user.friends?.length,
+        itemCount: count??0,
         itemBuilder: (BuildContext context, int index) {
           return Container(
             width: double.infinity,
@@ -57,8 +53,11 @@ class _FriendsPageState extends State<FriendsPage> {
         child: FloatingActionButton(
           onPressed: () {
             print('add new friend');
+            Navigator.popAndPushNamed(context, '/addFriend',
+                arguments: {'user': user});
           },
           child: Icon(Icons.add),
+          shape: CircleBorder(),
         ),
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

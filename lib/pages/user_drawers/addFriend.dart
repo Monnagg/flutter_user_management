@@ -1,18 +1,28 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '../tools/account.dart';
+import '../../tools/account.dart';
 
-class RegistrationPage extends StatefulWidget {
+class AddFriendPage extends StatefulWidget {
+  final Map arguments;
+  AddFriendPage({super.key, required this.arguments});
+
   @override
-  _RegistrationPageState createState() => _RegistrationPageState();
+  _AddFriendState createState() => _AddFriendState();
 }
 
-class _RegistrationPageState extends State<RegistrationPage> {
+class _AddFriendState extends State<AddFriendPage> {
   final _formKey = GlobalKey<FormState>();
   final _userNameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _passwordController1 = TextEditingController();
-  final _passwordController2 = TextEditingController();
+  final _emailController2 = TextEditingController();
+  late User user;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    user = widget.arguments['user'];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +31,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        //title: Text('Registration Page'),
+        title: Text('Add New Friend'),
       ),
       body: Container(
         color: Colors.white,
@@ -32,25 +42,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
             // padding: EdgeInsets.fromLTRB(20, 80, 20, 20),
             children: [
               Container(
-                  height: height / 12,
-                  child: Image.asset('images/jci_icon.jpg')),
+                margin: EdgeInsets.all(20),
+                child: Icon(
+                  Icons.person,
+                  size: 120,
+                ),
+              ),
               Divider(),
-              Container(
-                  height: height / 10,
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    'Create Account',
-                    style: TextStyle(
-                      fontSize: 18,
-                    ),
-                  )),
+              // Container(
+              //     height: height / 10,
+              //     alignment: Alignment.bottomCenter,
+              //     child: Text(
+              //       'Add New Friend',
+              //       style: TextStyle(
+              //         fontSize: 18,
+              //       ),
+              //     )),
               SizedBox(height: height / 40),
               Container(
                 child: Form(
                   key: _formKey,
                   child: Column(
                     children: [
-                      //name
                       TextFormField(
                         controller: _userNameController,
                         decoration: InputDecoration(
@@ -66,7 +79,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         },
                       ),
                       SizedBox(height: height / 40),
-                      //email
                       TextFormField(
                         controller: _emailController,
                         decoration: InputDecoration(
@@ -82,37 +94,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         },
                       ),
                       SizedBox(height: height / 40),
-                      //password 1
                       TextFormField(
-                        controller: _passwordController1,
+                        controller: _emailController2,
                         decoration: InputDecoration(
-                            labelText: 'Password',
+                            labelText: 'Enter Eamil Again',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(5)),
-                            prefixIcon: Icon(Icons.lock)),
-                        obscureText: true,
+                            prefixIcon: Icon(Icons.email)),
+                        //obscureText: true,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter a password';
+                            return 'Please enter the email again';
                           }
-                          return null;
-                        },
-                      ),
-                      SizedBox(height: height / 40),
-                      //password 2
-                      TextFormField(
-                        controller: _passwordController2,
-                        decoration: InputDecoration(
-                            labelText: 'Enter Password Again',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(5)),
-                            prefixIcon: Icon(Icons.lock)),
-                        obscureText: true,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter the password again';
-                          }
-                          // You can add additional password validation logic here
                           return null;
                         },
                       ),
@@ -124,20 +117,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
                             if (_formKey.currentState!.validate()) {
                               String userName = _userNameController.text;
                               String email = _emailController.text;
-                              String password1 = _passwordController1.text;
-                              String password2 = _passwordController2.text;
 
-                              if (password1 == password2) {
-                                print('sucess');
-                                User newUser = User(
-                                    email: email,
-                                    password: password1,
-                                    userName: userName);
-                                // Use the 'newUser' object as needed (e.g., store it in a database)
-                                userList.add(newUser);
+                              String email2 = _emailController2.text;
+                              if (email == email2) {
+                                Friend friend = new Friend(
+                                    name: userName,
+                                    imageUrl:
+                                        'https://source.unsplash.com/random/?person');
+                                (user.friends= user.friends ?? []).add(friend);
+                                print(user.friends);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text('Registration successful'),
+                                    content: Text('Add successful'),
                                     behavior: SnackBarBehavior.floating,
                                     backgroundColor: Colors.greenAccent,
                                     shape: RoundedRectangleBorder(
@@ -145,12 +136,13 @@ class _RegistrationPageState extends State<RegistrationPage> {
                                     ),
                                   ),
                                 );
-                                Navigator.pushNamed(context, '/');
+                                Navigator.popAndPushNamed(context, '/friends',
+                                    arguments: {'user': user});
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content:
-                                        Text('The passwords are different'),
+                                    content: Text(
+                                        'The email addresses are different'),
                                     behavior: SnackBarBehavior.floating,
                                     backgroundColor: Colors.redAccent,
                                     shape: RoundedRectangleBorder(
@@ -161,7 +153,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                               }
                             }
                           },
-                          child: Text('Register'),
+                          child: Text('Add'),
                         ),
                       ),
                       SizedBox(height: height / 40),

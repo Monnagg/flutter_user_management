@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../tools/account.dart';
 
 class UserPage extends StatefulWidget {
-  final arguments;
+  final Map arguments;
   UserPage({Key? key, required this.arguments}) : super(key: key);
 
   @override
@@ -17,19 +17,18 @@ class _UserPageState extends State<UserPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    user = userList[widget.arguments['id']];
-    print(userList);
+    //user = userList[widget.arguments['id']];
+    user = widget.arguments['user'];
     print(widget.arguments);
     //user = widget.arguments;
-    print(
-        'user page ${user.userName} ${user.id} ${userList[widget.arguments['id']]}');
+    print('user page ${user.userName} ${user.id}');
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('User Page'),
+        title: Text('My Account'),
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
@@ -47,6 +46,7 @@ class MyBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String? location= user.location;
     return Flex(direction: Axis.vertical, children: [
       Container(
         margin: EdgeInsets.all(20),
@@ -72,22 +72,23 @@ class MyBody extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               child: SizedBox(
-                //height: 150, // 设置Card的高度
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      flex: 3, // 占据Card高度的三分之一
+                      flex: 3,
                       child: Icon(
                         Icons.person,
                         size: 100,
                       ),
                     ),
                     Expanded(
-                      flex: 1, // 占据Card高度的四分之一
+                      flex: 1,
                       child: TextButton(
                         onPressed: () {
-                          // 按钮点击事件
+                          print(user.userName);
+                          Navigator.pushNamed(context, '/name',
+                              arguments: {'user': user});
                         },
                         child: Text(
                           '${user.userName}',
@@ -111,22 +112,22 @@ class MyBody extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               child: SizedBox(
-                //height: 150, // 设置Card的高度
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      flex: 3, // 占据Card高度的三分之一
+                      flex: 3,
                       child: Icon(
                         Icons.email,
                         size: 100,
                       ),
                     ),
                     Expanded(
-                      flex: 1, // 占据Card高度的四分之一
+                      flex: 1,
                       child: TextButton(
                         onPressed: () {
-                          // 按钮点击事件
+                          Navigator.pushNamed(context, '/email',
+                              arguments: {'user': user});
                         },
                         child: Text(
                           '${user.email}',
@@ -150,25 +151,25 @@ class MyBody extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20)),
               child: SizedBox(
-                //height: 150, // 设置Card的高度
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
-                      flex: 3, // 占据Card高度的三分之一
+                      flex: 3,
                       child: Icon(
                         Icons.location_on,
                         size: 100,
                       ),
                     ),
                     Expanded(
-                      flex: 1, // 占据Card高度的四分之一
+                      flex: 1,
                       child: TextButton(
                         onPressed: () {
-                          // 按钮点击事件
+                          Navigator.pushNamed(context, '/address',
+                              arguments: {'user': user});
                         },
-                        child: Text(
-                          'Address',
+                        child: Text(location??'Address'
+                         ,
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                         style: ButtonStyle(
@@ -183,44 +184,45 @@ class MyBody extends StatelessWidget {
               ),
             ),
             //hobby
-            Card(
-              color: Colors.white,
-              elevation: 5,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20)),
-              child: SizedBox(
-                //height: 150, // 设置Card的高度
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      flex: 3, // 占据Card高度的三分之一
-                      child: Icon(
-                        Icons.interests,
-                        size: 100,
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1, // 占据Card高度的四分之一
-                      child: TextButton(
-                        onPressed: () {
-                          // 按钮点击事件
-                        },
-                        child: Text(
-                          'Hobby',
-                          style: TextStyle(color: Colors.black, fontSize: 18),
-                        ),
-                        style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0),
-                        ))),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
+            // Card(
+            //   color: Colors.white,
+            //   elevation: 5,
+            //   shape: RoundedRectangleBorder(
+            //       borderRadius: BorderRadius.circular(20)),
+            //   child: SizedBox(
+            //     child: Column(
+            //       crossAxisAlignment: CrossAxisAlignment.stretch,
+            //       children: [
+            //         Expanded(
+            //           flex: 3,
+            //           child: Icon(
+            //             Icons.interests,
+            //             size: 100,
+            //           ),
+            //         ),
+                   
+            //         Expanded(
+            //           flex: 1,
+            //           child: TextButton(
+            //             onPressed: () {
+            //               Navigator.pushNamed(context, '/hobby',
+            //                   arguments: {'user': user});
+            //             },
+            //             child: Text(
+            //               'Hobby',
+            //               style: TextStyle(color: Colors.black, fontSize: 18),
+            //             ),
+            //             style: ButtonStyle(
+            //                 shape: MaterialStateProperty.all<
+            //                     RoundedRectangleBorder>(RoundedRectangleBorder(
+            //               borderRadius: BorderRadius.circular(0),
+            //             ))),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // )
           ],
         ),
       ),
@@ -242,8 +244,14 @@ class MyDrawer extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: UserAccountsDrawerHeader(
-                  accountName: Text('${user.userName}  '),
-                  accountEmail: Text('${user.email}'),
+                  accountName: Text('${user.userName}',style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20
+                  ),),
+                  accountEmail: Text('${user.email}',style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16
+                  ),),
                   currentAccountPicture: CircleAvatar(
                     backgroundImage:
                         NetworkImage('https://source.unsplash.com/k9XZPpPHDho'),
@@ -260,32 +268,41 @@ class MyDrawer extends StatelessWidget {
             ],
           ),
           SizedBox(height: 10),
+          //home
           ListTile(
             leading: CircleAvatar(child: Icon(Icons.home)),
             title: Text("Home"),
             onTap: () {
-              Navigator.pushNamed(context, '/home');
+              Navigator.pushNamed(context, '/home', arguments: {'user': user});
             },
           ),
           SizedBox(height: 10),
+          //friends
           ListTile(
             leading: CircleAvatar(child: Icon(Icons.people)),
             title: Text("Friends"),
             onTap: () {
               print(user.id);
               Navigator.pushNamed(context, '/friends',
-                  arguments: {'id': user.id});
+                  arguments: {'user': user });
             },
           ),
           SizedBox(height: 10),
           ListTile(
             leading: CircleAvatar(child: Icon(Icons.games)),
             title: Text("Games"),
+            onTap: () {
+              Navigator.pushNamed(context, '/games', arguments: {'user': user});
+            },
           ),
           SizedBox(height: 10),
+          //books
           ListTile(
             leading: CircleAvatar(child: Icon(Icons.book)),
             title: Text("Books"),
+            onTap: () {
+              Navigator.pushNamed(context, '/books', arguments: {'user': user});
+            },
           ),
         ],
       ),

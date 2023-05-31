@@ -4,19 +4,19 @@ class User {
   String email;
   String password;
   String? location;
-  final List? friends;
-  final List? hobbies;
+   List? friends;
+   List? hobbies;
 
   User({this.id,required this.userName, required this.email, required this.password,
       this.location, this.friends, this.hobbies});
 }
 
 class Friend {
-  int id;
+  int? id;
   final String name;
   final String imageUrl;
 
-  Friend({required this.id, required this.name, required this.imageUrl});
+  Friend({ this.id, required this.name, required this.imageUrl});
 }
 
 class Hobby {
@@ -72,27 +72,28 @@ List<User> userList = [
       Friend(
           id: 1,
           name: 'Grace',
-          imageUrl: 'https://source.unsplash.com/k9XZPpPHDho'),
+          imageUrl: 'https://source.unsplash.com/mou0S7ViElQ'),
       Friend(
           id: 2,
           name: 'Henry',
-          imageUrl: 'https://source.unsplash.com/k9XZPpPHDho'),
+          imageUrl: 'https://source.unsplash.com/6-adg66qleM'),
       Friend(
           id: 3,
           name: 'Isabella',
-          imageUrl: 'https://source.unsplash.com/k9XZPpPHDho'),
+          imageUrl: 'https://source.unsplash.com/t0Bv0OBQuTg'),
       Friend(
           id: 4,
           name: 'Jack',
-          imageUrl: 'https://source.unsplash.com/k9XZPpPHDho'),
+          imageUrl: 'https://source.unsplash.com/YmTIxQbQo4I'),
       Friend(
           id: 5,
           name: 'Kelly',
-          imageUrl: 'https://source.unsplash.com/k9XZPpPHDho'),
+          imageUrl: 'https://source.unsplash.com/NE0XGVKTmcA'),
       Friend(
           id: 6,
           name: 'Liam',
-          imageUrl: 'https://source.unsplash.com/k9XZPpPHDho'),
+          imageUrl: 'https://source.unsplash.com/brFsZ7qszSY'),
+          
     ],
     hobbies: [
       Hobby(id: 1, hobby: 'Traveling'),

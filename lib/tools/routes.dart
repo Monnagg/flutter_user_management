@@ -1,17 +1,35 @@
 import 'package:flutter/material.dart';
 import '../pages/home.dart';
 import '../pages/user.dart';
-import '../pages/tabs/friends.dart';
+import '../pages/user_drawers/friends.dart';
 import '../pages/signin.dart';
 import '../pages/register.dart';
+import '../pages/user_cards/name.dart';
+import '../pages/user_cards/address.dart';
+import '../pages/user_cards/hobby.dart';
+import '../pages/user_cards/email.dart';
+import '../pages/user_drawers/books.dart';
+import '../pages/user_drawers/games.dart';
+import '../pages/user_cards/hobby.dart';
+import '../pages/user_drawers/addFriend.dart';
 
 Map myRoutes = {
   '/': (context) => SignInPage(),
   '/user': (context, {arguments}) => UserPage(arguments: arguments),
-  '/home': (context, {arguments}) => HomePage(),
+  '/home': (context, {arguments}) => HomePage(arguments: arguments),
   '/friends': (context,{arguments}) => FriendsPage(arguments: arguments),
+  '/addFriend': (context,{arguments}) => AddFriendPage(arguments: arguments),
   '/register':(context) =>RegistrationPage(),
-  '/signin':(context) =>SignInPage(),
+  //'/signin':(context) =>SignInPage(),
+  '/name': (context,{arguments}) => NamePage(arguments: arguments),
+  '/address': (context,{arguments}) => AddressPage(arguments: arguments),
+  '/hobby': (context,{arguments}) => NamePage(arguments: arguments),
+  '/email': (context,{arguments}) => EmailPage(arguments: arguments),
+  '/books': (context,{arguments}) => BookPage(arguments: arguments),
+  '/games': (context,{arguments}) => GamesPage(arguments: arguments),
+  '/hobby': (context,{arguments}) => HobbiesPage(arguments: arguments),
+
+
 };
 
 //midleware

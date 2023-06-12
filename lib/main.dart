@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-// import 'package:user_management/pages/login.dart';
-// import './pages/home.dart';
-// import './pages/user.dart';
-// //import './pages/login.dart';
-// import './pages/tabs/friends.dart';
-// import './pages/signin.dart';
+import 'package:provider/provider.dart';
+import 'package:user_management/pages/signin.dart';
+import 'package:user_management/pages/user_drawers/addFriend.dart';
+import './providers/counter_provider.dart';
+import 'package:user_management/tools/account.dart';
 import './tools/routes.dart';
+import './pages/counter.dart';
 void main() {
   runApp(MyApp());
 }
@@ -13,19 +13,22 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
    
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'User Management',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (_)=> Counter(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'User Management',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+          useMaterial3: true,
+        ),
+        home: CounterPage(),
+        //initialRoute: '/counter',
+        onGenerateRoute:onGenerateRoute, 
       ),
-      initialRoute: '/',
-      onGenerateRoute:onGenerateRoute, 
     );
   }
 }

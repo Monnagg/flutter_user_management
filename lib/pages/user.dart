@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_management/consts/router_keys.dart';
 import '../tools/account.dart';
 
 class UserPage extends StatefulWidget {
@@ -35,7 +36,10 @@ class _UserPageState extends State<UserPage> {
       body: MyBody(
         user: user,
       ),
-      drawer: MyDrawer(user: user),
+      drawer: MyDrawer(
+        key: RouterKeys.userDrawer,
+        user: user,      
+      ),
     );
   }
 }
@@ -46,7 +50,7 @@ class MyBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? location= user.location;
+    String? location = user.location;
     return Flex(direction: Axis.vertical, children: [
       Container(
         margin: EdgeInsets.all(20),
@@ -168,8 +172,8 @@ class MyBody extends StatelessWidget {
                           Navigator.pushNamed(context, '/address',
                               arguments: {'user': user});
                         },
-                        child: Text(location??'Address'
-                         ,
+                        child: Text(
+                          location ?? 'Address',
                           style: TextStyle(color: Colors.black, fontSize: 18),
                         ),
                         style: ButtonStyle(
@@ -183,46 +187,6 @@ class MyBody extends StatelessWidget {
                 ),
               ),
             ),
-            //hobby
-            // Card(
-            //   color: Colors.white,
-            //   elevation: 5,
-            //   shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(20)),
-            //   child: SizedBox(
-            //     child: Column(
-            //       crossAxisAlignment: CrossAxisAlignment.stretch,
-            //       children: [
-            //         Expanded(
-            //           flex: 3,
-            //           child: Icon(
-            //             Icons.interests,
-            //             size: 100,
-            //           ),
-            //         ),
-                   
-            //         Expanded(
-            //           flex: 1,
-            //           child: TextButton(
-            //             onPressed: () {
-            //               Navigator.pushNamed(context, '/hobby',
-            //                   arguments: {'user': user});
-            //             },
-            //             child: Text(
-            //               'Hobby',
-            //               style: TextStyle(color: Colors.black, fontSize: 18),
-            //             ),
-            //             style: ButtonStyle(
-            //                 shape: MaterialStateProperty.all<
-            //                     RoundedRectangleBorder>(RoundedRectangleBorder(
-            //               borderRadius: BorderRadius.circular(0),
-            //             ))),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // )
           ],
         ),
       ),
@@ -232,7 +196,8 @@ class MyBody extends StatelessWidget {
 
 class MyDrawer extends StatelessWidget {
   User user;
-  MyDrawer({super.key, required this.user});
+  Key? key;
+  MyDrawer({this.key, required this.user});
 
   @override
   Widget build(BuildContext context) {
@@ -244,14 +209,14 @@ class MyDrawer extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: UserAccountsDrawerHeader(
-                  accountName: Text('${user.userName}',style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20
-                  ),),
-                  accountEmail: Text('${user.email}',style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16
-                  ),),
+                  accountName: Text(
+                    '${user.userName}',
+                    style: TextStyle(color: Colors.black, fontSize: 20),
+                  ),
+                  accountEmail: Text(
+                    '${user.email}',
+                    style: TextStyle(color: Colors.black, fontSize: 16),
+                  ),
                   currentAccountPicture: CircleAvatar(
                     backgroundImage:
                         NetworkImage('https://source.unsplash.com/k9XZPpPHDho'),
@@ -279,12 +244,13 @@ class MyDrawer extends StatelessWidget {
           SizedBox(height: 10),
           //friends
           ListTile(
+            key: RouterKeys.friends,
             leading: CircleAvatar(child: Icon(Icons.people)),
             title: Text("Friends"),
             onTap: () {
               print(user.id);
               Navigator.pushNamed(context, '/friends',
-                  arguments: {'user': user });
+                  arguments: {'user': user});
             },
           ),
           SizedBox(height: 10),

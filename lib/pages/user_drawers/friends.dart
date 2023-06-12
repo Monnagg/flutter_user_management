@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_management/consts/router_keys.dart';
 import '../../tools/account.dart';
 
 class FriendsPage extends StatefulWidget {
@@ -51,6 +52,7 @@ class _FriendsPageState extends State<FriendsPage> {
       floatingActionButton: Container(
         margin: EdgeInsets.fromLTRB(0, 0, 20, 20),
         child: FloatingActionButton(
+          key: RouterKeys.addFriendBtn,
           onPressed: () {
             print('add new friend');
             Navigator.popAndPushNamed(context, '/addFriend',

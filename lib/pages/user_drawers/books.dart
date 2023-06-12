@@ -47,9 +47,7 @@ class _BookPageState extends State<BookPage>
           actions: [
             IconButton(
               icon: Icon(Icons.search),
-              onPressed: () {
-                // Perform search action
-              },
+              onPressed: null,
             ),
           ],
           bottom: TabBar(controller: _tabController, tabs: [
@@ -78,7 +76,7 @@ class _BookPageState extends State<BookPage>
                   color: Colors.white,
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    itemCount: 7, // Number of items in the first row ListView
+                    itemCount: 7, 
                     itemBuilder: (context, index) {
                       return Container(
                         alignment: Alignment.bottomCenter,
@@ -91,14 +89,6 @@ class _BookPageState extends State<BookPage>
                               fit: BoxFit.cover),
                           color: Colors.blue,
                         ),
-                        // child: Container(
-                        //   child: Text(
-                        //     'Book $index',
-                        //     style: TextStyle(
-                        //       //backgroundColor: Color.fromRGBO(211, 211, 211, 0.8),
-                        //       color: Colors.white),
-                        //   ),
-                        // ),
                       );
                     },
                   ),
@@ -130,11 +120,6 @@ class _BookPageState extends State<BookPage>
                               fit: BoxFit.cover),
                           color: Colors.blue,
                         ),
-
-                        // child: Text(
-                        //   'Book $index',
-                        //   style: TextStyle(color: Colors.white),
-                        // ),
                       );
                     },
                   ),

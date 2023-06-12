@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../../consts/router_keys.dart';
 import '../../tools/account.dart';
 
 class AddFriendPage extends StatefulWidget {
@@ -65,6 +66,7 @@ class _AddFriendState extends State<AddFriendPage> {
                   child: Column(
                     children: [
                       TextFormField(
+                        key: RouterKeys.friend_name,
                         controller: _userNameController,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
@@ -80,6 +82,7 @@ class _AddFriendState extends State<AddFriendPage> {
                       ),
                       SizedBox(height: height / 40),
                       TextFormField(
+                        key: RouterKeys.friend_email1,
                         controller: _emailController,
                         decoration: InputDecoration(
                             labelText: 'Email',
@@ -95,6 +98,7 @@ class _AddFriendState extends State<AddFriendPage> {
                       ),
                       SizedBox(height: height / 40),
                       TextFormField(
+                        key: RouterKeys.friend_email2,
                         controller: _emailController2,
                         decoration: InputDecoration(
                             labelText: 'Enter Eamil Again',
@@ -113,18 +117,19 @@ class _AddFriendState extends State<AddFriendPage> {
                       Container(
                         width: double.infinity,
                         child: ElevatedButton(
+                          key: RouterKeys.friend_add,
                           onPressed: () {
+                            print('click');
                             if (_formKey.currentState!.validate()) {
                               String userName = _userNameController.text;
                               String email = _emailController.text;
-
                               String email2 = _emailController2.text;
                               if (email == email2) {
                                 Friend friend = new Friend(
                                     name: userName,
                                     imageUrl:
                                         'https://source.unsplash.com/random/?person');
-                                (user.friends= user.friends ?? []).add(friend);
+                                (user.friends = user.friends ?? []).add(friend);
                                 print(user.friends);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
@@ -136,8 +141,10 @@ class _AddFriendState extends State<AddFriendPage> {
                                     ),
                                   ),
                                 );
+                                print('before navigation');
                                 Navigator.popAndPushNamed(context, '/friends',
                                     arguments: {'user': user});
+                                print('After navigation');
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(

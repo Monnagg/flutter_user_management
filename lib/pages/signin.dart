@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_management/consts/router_keys.dart';
 import '../tools/account.dart';
 
 class SignInPage extends StatefulWidget {
@@ -14,32 +15,6 @@ class _SignInPageState extends State<SignInPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // int _verifyLogin(String username, String password) {
-  //   // print('${username} ${password}');
-  //   // print(userList);
-  //   for (int i = 0; i < userList.length; i++) {
-  //     //print('${i} ${userList[i].userName == username } ${userList[i].userName} ${userList[i].password}');
-  //     if (userList[i].userName == username || userList[i].email == username) {
-  //       if (userList[i].password == password) {
-  //         return i;
-  //       }
-  //     }
-  //   }
-  //   return -1;
-  // }
-//  String? _getUserEmail(String username, String password) {
-//     // print('${username} ${password}');
-//     // print(userList);
-//     for (int i = 0; i < userList.length; i++) {
-//       //print('${i} ${userList[i].userName == username } ${userList[i].userName} ${userList[i].password}');
-//       if (userList[i].userName == username || userList[i].email == username) {
-//         if (userList[i].password == password) {
-//           return userList[i].email;
-//         }
-//       }
-//     }
-//     return null;
-//   }
   User? _getUser(String username, String password) {
     // print('${username} ${password}');
     // print(userList);
@@ -80,7 +55,9 @@ class _SignInPageState extends State<SignInPage> {
               size: width / 4,
             ),
             SizedBox(height: width / 10),
+            //username
             TextField(
+              key: RouterKeys.usernameText,
               controller: _usernameController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -92,7 +69,9 @@ class _SignInPageState extends State<SignInPage> {
               ),
             ),
             SizedBox(height: width / 20),
+            //password
             TextField(
+              key: RouterKeys.passwordText,
               controller: _passwordController,
               obscureText: true,
               decoration: InputDecoration(
@@ -125,6 +104,7 @@ class _SignInPageState extends State<SignInPage> {
             ),
             SizedBox(height: width / 20),
             ElevatedButton(
+              key: RouterKeys.signinBtn,
               onPressed: () {
                 print('button');
                 String username = _usernameController.text;
@@ -174,6 +154,7 @@ class _SignInPageState extends State<SignInPage> {
                 });
               },
               child: Text('Sign In'),
+              
             ),
           ],
         ),
